@@ -88,6 +88,7 @@ export default {
         message: '登陆中...',
         // 禁用背景点击
         forbidClick: true,
+        // 持续显示
         duration: 0
       })
       // try 捕获成功的结果
@@ -96,7 +97,7 @@ export default {
         this.$toast.success('登陆成功')
         this.$store.commit('setUser', data.data)
         // 编程式导航跳转到首页
-        this.$router.push('/')
+        this.$router.push('/my')
       } catch (err) {
         // catch 捕获失败的结果
         if (err.response.status === 400) {
@@ -159,7 +160,6 @@ export default {
 }
 // 样式穿透
 .van-cell /deep/ .van-field__button {
-  border-left: 2px solid #eee;
-  padding-left: 20px;
+  border-left: 2px solid #ccc;
 }
 </style>
