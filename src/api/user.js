@@ -5,7 +5,6 @@
 
 // 导入请求模块
 import request from '@/utils/request'
-import store from '@/store'
 
 // 用户登录请求
 export const login = data => {
@@ -28,10 +27,14 @@ export const getSmsCode = mobile => {
 export const getUserInfo = () => {
   return request({
     method: 'GET',
-    url: '/app/v1_0/user',
-    // 发送请求头数据
-    headers: {
-      Authorization: `Bearer ${store.state.user.token}`
-    }
+    url: '/app/v1_0/user'
+  })
+}
+
+// 获取用户频道列表
+export const getUserChannel = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user/channels'
   })
 }

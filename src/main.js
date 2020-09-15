@@ -7,6 +7,7 @@ import './plugins/vant.js'
 import './styles/index.less'
 // 加载动态设置rem基准值
 import 'amfe-flexible'
+import './utils/dayjs'
 
 Vue.config.productionTip = false
 
