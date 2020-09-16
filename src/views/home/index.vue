@@ -2,7 +2,15 @@
   <div class="home_container">
     <!-- 顶部搜索栏 -->
     <van-nav-bar class="page_nav_bar" fixed>
-      <van-button slot="title" class="serach_btn" type="info" size="small" round icon="search">搜索</van-button>
+      <van-button
+        slot="title"
+        class="serach_btn"
+        type="info"
+        size="small"
+        round
+        icon="search"
+        to="/search"
+      >搜索</van-button>
     </van-nav-bar>
     <!-- 头部tab标签页
         通过 animated 属性可以开启切换标签内容时的转场动画。
@@ -112,8 +120,10 @@ export default {
         if (this.user) {
           // 已登录
           await deleteUserChannels(channel.id)
+          this.UserChannel.splice(index, 1)
         } else {
           // 未登录
+          this.UserChannel.splice(index, 1)
           setItem(TOUTIAO_KEY, this.UserChannel)
         }
       } catch (err) {
@@ -123,7 +133,6 @@ export default {
       if (index <= this.active) {
         this.active--
       }
-      this.UserChannel.splice(index, 1)
     }
   },
   // 子组件

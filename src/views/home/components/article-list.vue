@@ -1,5 +1,6 @@
 <template>
   <div class="article_list">
+    <!-- 下拉刷新 -->
     <van-pull-refresh
       v-model="isLoadingRefresh"
       :success-duration="1500"
