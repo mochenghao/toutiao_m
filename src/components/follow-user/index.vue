@@ -1,4 +1,5 @@
 <template>
+  <!-- 关注和未关注按钮 -->
   <van-button
     v-if="article.is_followed"
     :loading="isloading"
@@ -64,7 +65,10 @@ export default {
         this.$emit('update-follow', !this.is_followed)
         // this.$emit('input', !this.value)
       } catch (err) {
-        this.$toast('请求失败，请稍后重试')
+        this.$toast('请求失败，请稍后重试！')
+        if (err.response && err.response.status === 400) {
+          this.$toast('用户不能关注自己！')
+        }
       }
       // 关闭loading效果
       this.isloading = false
