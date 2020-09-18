@@ -13,7 +13,8 @@ module.exports = {
       },
       // rootValue: 37.5,
       // 配置要转换的属性
-      propList: ['*']
+      propList: ['*'],
+      exclude: 'github-markdown'
     }
   }
 }

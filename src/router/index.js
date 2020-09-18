@@ -17,7 +17,12 @@ const routes = [
       { path: '/my', component: () => import('@/views/my') }
     ]
   },
-  { path: '/search', component: () => import('@/views/search') }
+  { path: '/search', component: () => import('@/views/search') },
+  {
+    path: '/article/:articleId',
+    component: () => import('@/views/article'),
+    props: true // 开启路由传参
+  }
 ]
 
 const router = new VueRouter({

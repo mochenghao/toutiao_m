@@ -16,7 +16,11 @@
         @load="onload"
       >
         <!-- 子组件 -->
-        <article-item :key="item.art_id" v-for="item in list" :article="item" />
+        <article-item
+          :key="index"
+          v-for="(item, index) in list"
+          :article="item"
+        />
       </van-list>
     </van-pull-refresh>
   </div>

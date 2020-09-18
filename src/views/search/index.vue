@@ -1,5 +1,6 @@
 <template>
   <div class="search_container">
+    <!-- 顶部搜索栏 -->
     <form action="/">
       <van-search
         v-model="searchText"
@@ -15,11 +16,7 @@
     <!-- 搜索结果 -->
     <search-result v-if="isResultShow" :search-text="searchText" />
     <!-- 联想建议 -->
-    <search-suggestion
-      v-else-if="searchText"
-      :search-text="searchText"
-      @search="onSearch"
-    />
+    <search-suggestion v-else-if="searchText" :search-text="searchText" @search="onSearch" />
     <!-- 历史记录 -->
     <search-history
       v-else

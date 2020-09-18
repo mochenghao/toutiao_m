@@ -9,12 +9,7 @@
       error-text="请求失败，点击重新加载"
       @load="loadSearchResult"
     >
-      <van-cell
-        icon="search"
-        :title="item.title"
-        :key="index"
-        v-for="(item, index) in list"
-      />
+      <van-cell icon="search" :title="item.title" :key="index" v-for="(item, index) in list" />
     </van-list>
   </div>
 </template>
@@ -83,4 +78,9 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.search_result {
+  height: 92vh;
+  overflow: auto;
+}
+</style>
