@@ -4,9 +4,9 @@
 
 <script>
 export default {
-  name: 'QaIndex'
+  name: 'QaIndex',
+  created() {}
 }
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

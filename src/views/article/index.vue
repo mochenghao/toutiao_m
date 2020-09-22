@@ -1,13 +1,15 @@
 <template>
-  <div class="article_container ">
+  <div class="article_container">
     <!-- 导航栏 -->
     <van-nav-bar
       class="page_nav_bar"
       left-arrow
       title="黑马头条"
-      @click-left="onClickLeft"
+      @click-left="$router.back()"
     ></van-nav-bar>
     <!-- /导航栏 -->
+
+    <!-- 文章详情 -->
     <div class="main-wrap">
       <!-- 加载中 -->
       <div v-if="isLoading" class="loading-wrap">
@@ -36,11 +38,6 @@
           </div>
           <!-- 关注按钮子组件 -->
           <follow-user :article="article" v-model="article.is_followed" />
-          <!--
-            子组件接收父组件的传值，又要修改，使用v-model更方便
-            :is_followed="article.is_followed"
-            @update-follow="article.is_followed = $event"
-          -->
         </van-cell>
         <!-- /用户信息 -->
 
@@ -51,6 +48,60 @@
           ref="articleDetailRef"
         ></div>
         <van-divider>正文结束</van-divider>
+        <!-- /文章内容 -->
+
+        <!-- 评论列表组件 -->
+        <comment-list
+          type="a"
+          :articleId="article.art_id"
+          :list="commentList"
+          @onload-success="totalCount = $event"
+          @reply-click="onReplyClick"
+        />
+        <!-- /评论列表组件 -->
+
+        <!-- 底部区域 -->
+        <div class="article-bottom">
+          <van-button
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
+            @click="isShow = true"
+            >写评论</van-button
+          >
+          <van-icon name="comment-o" :info="totalCount" color="#777" />
+          <!-- 收藏按钮组件 -->
+          <collect-article
+            v-model="article.is_collected"
+            :articleId="article.art_id"
+          />
+          <!-- /收藏按钮组件 -->
+
+          <!-- 点赞按钮组件 -->
+          <like-article
+            v-model="article.attitude"
+            :articleId="article.art_id"
+          />
+          <!-- /点赞按钮组件 -->
+
+          <van-icon
+            name="share"
+            color="#777777"
+            @click="$toast.fail('暂不支持该功能')"
+          ></van-icon>
+        </div>
+        <!-- /底部区域 -->
+
+        <!-- 评论弹出层 -->
+        <van-popup v-model="isShow" position="bottom">
+          <comment-post
+            :target="article.art_id"
+            type="article"
+            @post-success="onPostSuccess"
+          />
+        </van-popup>
+        <!-- /评论弹出层 -->
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -69,18 +120,21 @@
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
     </div>
+    <!-- /文章详情 -->
 
-    <!-- 底部区域 -->
-    <div class="article-bottom">
-      <van-button class="comment-btn" type="default" round size="small"
-        >写评论</van-button
-      >
-      <van-icon name="comment-o" info="123" color="#777" />
-      <van-icon color="#777" name="star-o" />
-      <van-icon color="#777" name="good-job-o" />
-      <van-icon name="share" color="#777777"></van-icon>
-    </div>
-    <!-- /底部区域 -->
+    <!-- 评论回复弹出层 -->
+    <van-popup
+      v-model="isReplyShow"
+      position="bottom"
+      :style="{ height: '80%' }"
+    >
+      <comment-reply
+        :comment="comment"
+        :articleId="article.art_id"
+        @close="isReplyShow = false"
+      />
+    </van-popup>
+    <!-- /评论回复 -->
   </div>
 </template>
 
@@ -88,11 +142,21 @@
 import { getArticleById } from '@/api/article'
 import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
+import CollectArticle from '@/components/collect-article'
+import LikeArticle from '@/components/like-article'
+import CommentPost from './components/comment-post'
+import CommentList from './components/comment-list'
+import CommentReply from './components/comment-reply'
 
 export default {
   name: 'ArticleIndex',
   components: {
-    FollowUser
+    FollowUser,
+    CollectArticle,
+    LikeArticle,
+    CommentPost,
+    CommentList,
+    CommentReply
   },
   props: {
     articleId: {
@@ -110,14 +174,19 @@ export default {
       // 控制loading的显示状态
       isLoading: true,
       // http请求返回的状态码
-      errStatus: 0
+      errStatus: 0,
+      // 控制评论弹出层的状态
+      isShow: false,
+      // 总数据条数
+      totalCount: 0,
+      commentList: [],
+      // 控制评论回复的弹出层的状态
+      isReplyShow: false,
+      // 当前点击的每一项数据
+      comment: {}
     }
   },
   methods: {
-    // 点击导航栏左侧箭头返回
-    onClickLeft() {
-      this.$router.back()
-    },
     // 根据文章Id 获取文章详情
     async loadArticleInfo() {
       try {
@@ -154,6 +223,16 @@ export default {
           })
         }
       })
+    },
+    onPostSuccess(data) {
+      this.isShow = false
+      this.commentList.unshift(data.new_obj)
+      this.totalCount++
+    },
+    onReplyClick(val) {
+      this.comment = val
+      // 显示弹出层
+      this.isReplyShow = true
     }
   }
 }

@@ -22,6 +22,10 @@ const routes = [
     path: '/article/:articleId',
     component: () => import('@/views/article'),
     props: true // 开启路由传参
+  },
+  {
+    path: '/user/profile',
+    component: () => import('@/views/user-profile')
   }
 ]
 

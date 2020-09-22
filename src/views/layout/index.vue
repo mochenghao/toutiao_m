@@ -1,7 +1,10 @@
 <template>
   <div class="layout_container">
     <!-- 路由占位符 -->
-    <router-view />
+    <!-- 开启组件缓存 -->
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <!-- Tabbar 标签栏 -->
     <!-- route 开启路由模式 to 去往某个页面 -->
     <van-tabbar class="layout-tabbar" route>
@@ -19,7 +22,7 @@
       </van-tabbar-item>
       <van-tabbar-item to="/my">
         <i slot="icon" class="iconfont toutiao-wode"></i>
-        <span class="text">{{$store.state.user?'我的':'未登录'}}</span>
+        <span class="text">{{ $store.state.user ? '我的' : '未登录' }}</span>
       </van-tabbar-item>
     </van-tabbar>
   </div>
@@ -27,7 +30,10 @@
 
 <script>
 export default {
-  name: 'LayoutIndex'
+  name: 'LayoutIndex',
+  created() {
+    console.log('layout')
+  }
 }
 </script>
 

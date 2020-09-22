@@ -1,44 +1,44 @@
 <template>
   <div class="my_container">
-    <!-- 我的-未登录页面 -->
-    <div class="header not_login" v-if="!user">
-      <div class="login_btn" @click="$router.push('/login')">
-        <img src="~@/assets/mobile.png" />
-        <span class="text">登录 / 注册</span>
-      </div>
-    </div>
     <!-- 我的-登录页面 -->
-    <div class="header user_info" v-else-if="user">
+    <div class="header user_info" v-if="user">
       <!-- 上面盒子 -->
       <div class="top_box">
         <!-- 左边头像盒子 -->
         <div class="left_box">
           <van-image class="avatar" :src="userInfo.photo" round fit="cover" />
-          <span class="name">{{userInfo.name}}</span>
+          <span class="name">{{ userInfo.name }}</span>
         </div>
         <!-- 右边按钮盒子 -->
         <div class="right_box">
-          <van-button round size="mini">编辑资料</van-button>
+          <van-button round size="mini" to="/user/profile">编辑资料</van-button>
         </div>
       </div>
       <!-- 下面的盒子 -->
       <div class="bottom_box">
         <div class="items">
-          <span class="num">{{userInfo.art_count}}</span>
+          <span class="num">{{ userInfo.art_count }}</span>
           <span class="text">文章</span>
         </div>
         <div class="items">
-          <span class="num">{{userInfo.follow_count}}</span>
+          <span class="num">{{ userInfo.follow_count }}</span>
           <span class="text">关注</span>
         </div>
         <div class="items">
-          <span class="num">{{userInfo.fans_count}}</span>
+          <span class="num">{{ userInfo.fans_count }}</span>
           <span class="text">粉丝</span>
         </div>
         <div class="items">
-          <span class="num">{{userInfo.like_count}}</span>
+          <span class="num">{{ userInfo.like_count }}</span>
           <span class="text">获赞</span>
         </div>
+      </div>
+    </div>
+    <!-- 我的-未登录页面 -->
+    <div class="header not_login" v-else>
+      <div class="login_btn" @click="$router.push('/login')">
+        <img src="~@/assets/mobile.png" />
+        <span class="text">登录 / 注册</span>
       </div>
     </div>
     <!-- 宫格导航 -->
@@ -56,7 +56,9 @@
     <van-cell title="消息通知" is-link />
     <van-cell title="小爱同学" is-link />
     <!-- 退出登录按钮 -->
-    <van-button type="danger" block v-if="user" @click="logout_btn">退出登录</van-button>
+    <van-button type="danger" block v-if="user" @click="logout_btn"
+      >退出登录</van-button
+    >
   </div>
 </template>
 

@@ -26,7 +26,7 @@ request.interceptors.request.use(
   function(config) {
     const { user } = store.state
     if (user && user.token) {
-      config.headers.Authorization = `Bearer ${user.token}`
+      config.headers.Authorization = 'Bearer ' + user.token
     }
     return config
   },
@@ -37,12 +37,33 @@ request.interceptors.request.use(
 )
 
 // 响应拦截器
-// request.interceptors.response.use(function (res) {
-//   // console.log(res)
-//   var data = res.data;
-//   return data;
-// }, function (err) {
-//   console.log(err)
-// })
+request.interceptors.response.use(
+  function(res) {
+    return res
+  },
+  async function(err) {
+    // console.dir(err)
+    // 捕获错误信息，刷新token有效期
+    if (err.response && err.response.status === 401) {
+      const refreshToken = store.state.user.refresh_token
+      // console.log(refreshToken)
+      const res = await axios({
+        method: 'PUT',
+        url: 'http://ttapi.research.itcast.cn/app/v1_0/authorizations',
+        headers: {
+          Authorization: 'Bearer ' + refreshToken
+        }
+      })
+      // console.log(res)
+      // 修改state中的数据，存入正确的token
+      store.commit('setUser', {
+        token: res.data.data.token,
+        refresh_token: refreshToken
+      })
+      return request(err.config)
+    }
+    return Promise.reject(err)
+  }
+)
 
 export default request

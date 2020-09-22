@@ -12,6 +12,7 @@ export default new Vuex.Store({
     // 一个对象存储用户登陆之后的token信息
     // user: JSON.parse(window.localStorage.getItem(TOKEN_KEY))
     user: getItem(TOKEN_KEY)
+    // comment: {}
   },
   // 修改state中的数据
   mutations: {
@@ -21,6 +22,10 @@ export default new Vuex.Store({
       // window.localStorage.setItem(TOKEN_KEY, JSON.stringify(state.user))
       setItem(TOKEN_KEY, state.user)
     }
+    // replyClick(state, comment) {
+    //   console.log(comment)
+    //   state.comment = comment
+    // }
   },
   actions: {},
   getters: {},
