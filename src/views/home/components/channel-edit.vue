@@ -117,6 +117,7 @@ export default {
 
 <style lang="less" scoped>
 .channel_edit {
+  background-color: #fff;
   padding-top: 95px;
   // 标题
   .title_text {

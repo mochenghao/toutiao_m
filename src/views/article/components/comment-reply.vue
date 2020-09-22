@@ -8,14 +8,14 @@
       left-arrow
       @click-left="$emit('close')"
     />
-    <!-- 当前评论项 -->
-    <comment-item :comment="comment" />
-    <!-- 当前评论回复列表项 -->
-    <comment-list :articleId="comment.com_id" type="c" :list="commentList" />
-    <div class="post_wrap">
-      <van-button class="post_btn" round size="small" @click="isShow = true"
-        >写评论</van-button
-      >
+    <div class="comment">
+      <!-- 当前评论项 -->
+      <comment-item :comment="comment" />
+      <!-- 当前评论回复列表项 -->
+      <comment-list :articleId="comment.com_id" type="c" :list="commentList" />
+      <div class="post_wrap">
+        <van-button class="post_btn" round size="small" @click="isShow = true">写评论</van-button>
+      </div>
     </div>
 
     <!-- 评论弹出层 -->
@@ -69,6 +69,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.comment_reply {
+  padding-top: 92px;
+  box-sizing: border-box;
+  .comment {
+    height: 72vh;
+    overflow: auto;
+  }
+}
+.van-nav-bar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
 .post_wrap {
   width: 100%;
   height: 88px;

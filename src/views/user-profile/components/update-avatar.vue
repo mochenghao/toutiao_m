@@ -47,12 +47,13 @@ export default {
       })
       // console.log(this.cropper.getData())
       try {
-        this.cropper.getCroppedCanvas().toBlob(async blob => {
+        this.cropper.getCroppedCanvas().toBlob(async (blob) => {
           // 创建formData数据
           const formData = new FormData()
           formData.append('photo', blob)
           const { data: res } = await updateUserAvatar(formData)
           // 关闭弹层，更新视图
+          // console.log(res)
           this.$emit('update-avatar', res.data.photo)
           this.$emit('close')
           this.$toast.success('更新成功')
@@ -79,6 +80,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     color: #fff;
+    font-size: 36px;
   }
 }
 </style>

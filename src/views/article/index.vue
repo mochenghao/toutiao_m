@@ -126,7 +126,7 @@
     <van-popup
       v-model="isReplyShow"
       position="bottom"
-      :style="{ height: '80%' }"
+      :style="{ height: '100%' }"
     >
       <comment-reply
         :comment="comment"

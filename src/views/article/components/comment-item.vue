@@ -19,7 +19,7 @@
           size="mini"
           type="default"
           @click="$emit('reply-click', comment)"
-          >回复&nbsp;{{ comment.reply_count }}</van-button
+          >回复&nbsp;{{ comment.reply_count + '条' }}</van-button
         >
       </p>
     </div>

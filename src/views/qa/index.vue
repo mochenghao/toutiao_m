@@ -9,4 +9,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.qa_container {
+  font-size: 36px;
+}
+</style>

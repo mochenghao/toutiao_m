@@ -30,7 +30,7 @@
     <van-popup
       v-model="isEditChannelShow"
       position="bottom"
-      :style="{ height: '93%' }"
+      :style="{ height: '90%' }"
       closeable
       round
       close-icon-position="top-left"

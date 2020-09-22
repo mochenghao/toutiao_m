@@ -1,45 +1,20 @@
 <template>
   <div class="user_profile">
     <!-- 头部导航栏 -->
-    <van-nav-bar
-      class="page_nav_bar"
-      title="个人信息"
-      left-arrow
-      @click-left="$router.back()"
-    >
-      <van-icon
-        slot="right"
-        name="ellipsis"
-        size="24"
-        @click="$toast.fail('你点了没用')"
-      />
+    <van-nav-bar class="page_nav_bar" title="个人信息" left-arrow @click-left="$router.back()">
+      <van-icon slot="right" name="ellipsis" size="24" @click="$toast.fail('你点了没用')" />
     </van-nav-bar>
-    <van-cell
-      class="avatar_box"
-      title="头像"
-      is-link
-      @click="$refs.file.click()"
-    >
+    <van-cell class="avatar_box" title="头像" is-link @click="$refs.file.click()">
       <van-image class="avatar" round fit="cover" :src="user.photo" />
     </van-cell>
-    <van-cell
-      title="昵称"
-      :value="user.name"
-      is-link
-      @click="isUpdateNameShow = true"
-    />
+    <van-cell title="昵称" :value="user.name" is-link @click="isUpdateNameShow = true" />
     <van-cell
       title="性别"
       :value="user.gender ? '女' : '男'"
       is-link
       @click="isUpdateGenderShow = true"
     />
-    <van-cell
-      title="生日"
-      :value="user.birthday"
-      is-link
-      @click="isUpdateBirthdayShow = true"
-    />
+    <van-cell title="生日" :value="user.birthday" is-link @click="isUpdateBirthdayShow = true" />
 
     <!-- 头像修改弹出层 -->
     <input type="file" ref="file" hidden @change="onFileChange" />
@@ -67,29 +42,13 @@
     </van-popup>
 
     <!-- 修改性别弹出层 -->
-    <van-popup
-      v-if="isUpdateGenderShow"
-      v-model="isUpdateGenderShow"
-      round
-      position="bottom"
-    >
-      <update-gender
-        @close="isUpdateGenderShow = false"
-        v-model="user.gender"
-      />
+    <van-popup v-if="isUpdateGenderShow" v-model="isUpdateGenderShow" round position="bottom">
+      <update-gender @close="isUpdateGenderShow = false" v-model="user.gender" />
     </van-popup>
 
     <!-- 修改生日弹出层 -->
-    <van-popup
-      v-if="isUpdateBirthdayShow"
-      v-model="isUpdateBirthdayShow"
-      round
-      position="bottom"
-    >
-      <update-birthday
-        @close="isUpdateBirthdayShow = false"
-        v-model="user.birthday"
-      />
+    <van-popup v-if="isUpdateBirthdayShow" v-model="isUpdateBirthdayShow" round position="bottom">
+      <update-birthday @close="isUpdateBirthdayShow = false" v-model="user.birthday" />
     </van-popup>
   </div>
 </template>
