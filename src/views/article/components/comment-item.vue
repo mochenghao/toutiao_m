@@ -27,7 +27,8 @@
       :class="{ active: comment.is_liking }"
       :name="comment.is_liking ? 'good-job' : 'good-job-o'"
       @click="onCommentLike"
-    />
+      >{{ comment.like_count || '赞' }}</van-icon
+    >
   </van-cell>
 </template>
 

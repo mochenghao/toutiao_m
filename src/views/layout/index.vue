@@ -31,9 +31,7 @@
 <script>
 export default {
   name: 'LayoutIndex',
-  created() {
-    console.log('layout')
-  }
+  created() {}
 }
 </script>
 
